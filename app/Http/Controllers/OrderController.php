@@ -126,7 +126,7 @@ class OrderController extends Controller
 
         // dd($users);
         request()->session()->flash('success','Your product successfully placed in order');
-        return redirect()->route('home');
+        return redirect()->route('home')->with('script_msg','<script> alert("Your order successfully received");</script>');
     }
 
     /**

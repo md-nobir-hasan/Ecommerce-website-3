@@ -97,6 +97,7 @@
                                 <div class="col-12 text-center">
                                     {{-- <label> Product Name <span class="text-danger"> {{ $data->title }}</span> --}}
                                     <input type="text" name="product_title" value="{{ $data->title }}" hidden>
+
                                     </label>
                                 </div>
                                 <div class="col-md-4">
@@ -104,6 +105,9 @@
                                             style="color: red;">*</span></label>
                                     <input name="first_name" type="text" class="form-control" id="name"
                                         placeholder="Enter your name" required>
+                                         @if ($errors->has('first_name'))
+                                            <span class="text-danger">{{ $errors->first('first_name') }}</span>
+                                        @endif
                                 </div>
                                 <div class="col-md-4">
                                     <label for="address1" class="form-label" placeholder="Enter your Address">Address
@@ -271,6 +275,9 @@
     </footer>
 
     </div>
+    @if (session()->has('script_msg'))
+        {!! session()->get('script_msg')  !!}
+    @endif
 
 
 
