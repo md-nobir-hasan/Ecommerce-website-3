@@ -879,3 +879,10 @@ input[type="submit"] {
 .custom_blog_title {
     text-align: center;
 }
+.why-us i {
+    font-size: 18px;
+}
+.why-us p {
+    font-size: 15px;
+    margin: 0px 0px 15px 0px;
+}

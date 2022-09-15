@@ -48,7 +48,7 @@
     {{-- Body content --}}
     <div class="container-fluid">
         {{-- Paragrap div --}}
-        <div class="row">
+        <div class="row shadow-lg p-3 mb-5 bg-body rounded">
             <div class="col-md-8 text-wrap">
                 <p class="text-wrap shadow-lg p-3 mb-5 bg-body rounded">🔰শৈশবের ডায়েরী / আমার স্মৃতিময় শৈশব। 😊
                     অনেকেই ডায়েরী ২ টার খোঁজ করেছেন কিন্তু পাননি। 🧐🧐 তাইতো
@@ -105,9 +105,9 @@
                                             style="color: red;">*</span></label>
                                     <input name="first_name" type="text" class="form-control" id="name"
                                         placeholder="Enter your name" required>
-                                         @if ($errors->has('first_name'))
-                                            <span class="text-danger">{{ $errors->first('first_name') }}</span>
-                                        @endif
+                                    @if ($errors->has('first_name'))
+                                        <span class="text-danger">{{ $errors->first('first_name') }}</span>
+                                    @endif
                                 </div>
                                 <div class="col-md-4">
                                     <label for="address1" class="form-label" placeholder="Enter your Address">Address
@@ -221,6 +221,27 @@
                 @endforeach
             </div>
         </section>
+        <section class="why-us">
+            <div class="row text-center shadow-lg p-3 mb-5 bg-body rounded justify-content-md-center">
+                {{-- align-self-center --}}
+                <div class="col-md-8 text-center ">
+                    <p><i class="fas fa-check-double"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Quisquam quasi labore sint, voluptatem quae itaque!</p>
+                    <p><i class="fas fa-check-double"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Quisquam quasi labore sint, voluptatem quae itaque!</p>
+                    <p><i class="fas fa-check-double"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Quisquam quasi labore sint, voluptatem quae itaque!</p>
+                    <p><i class="fas fa-check-double"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Quisquam quasi labore sint, voluptatem quae itaque!</p>
+                    <p><i class="fas fa-check-double"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Quisquam quasi labore sint, voluptatem quae itaque!</p>
+                    <p><i class="fas fa-check-double"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Quisquam quasi labore sint, voluptatem quae itaque!</p>
+                    <p><i class="fas fa-check-double"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Quisquam quasi labore sint, voluptatem quae itaque!</p>
+                </div>
+            </div>
+        </section>
     </div>
     {{-- End Body content --}}
     <div class="info-details">
@@ -276,7 +297,7 @@
 
     </div>
     @if (session()->has('script_msg'))
-        {!! session()->get('script_msg')  !!}
+        {!! session()->get('script_msg') !!}
     @endif
 
 
