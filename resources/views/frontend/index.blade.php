@@ -184,23 +184,6 @@
                                 </div>
 
 
-                                {{-- <select name="payment" id="payment_method" class="form-control select" required>
-                                        <option value="">Select Paymetn Method</option>
-                                        <option value="bkash" data-bs-toggle="collapse" data-bs-target="#bkash"
-                                            aria-expanded="false" aria-controls="bkash">Bkash</option>
-                                    </select> --}}
-                                {{-- <div class="col-md-4">
-                                    <label for="address" class="form-label form-controll">Payment Method
-                                        <input type="radio" name="pamyment_method" id=""
-                                            class="pamyment_method form-controll btn-check" value="bkash">Bkash
-                                        <input type="radio" name="pamyment_method" id=""
-                                            class="pamyment_method form-controll radio" value="nagad">Nagad
-                                        <input type="radio" name="pamyment_method" id=""
-                                            class="pamyment_method form-controll radio" value="cashondelivery">Cash On
-                                        Delivary
-                                    </label>
-
-                                </div> --}}
                                 <div class="row text-center">
                                     <div class="col-md-4" id="bkash" style="display:none">
                                         <label>আপনার বিকাশ নাম্বারঃ
@@ -252,7 +235,22 @@
                 </div>
             </div>
         </section>
+
+        {{-- review sectio --}}
+        <section>
+            <div class="row text-center shadow-lg p-3 mb-5 bg-body rounded ">
+                <h1>Customer Review</h1>
+                @foreach ($posts as $n)
+                    <div class="col-md-6 about">
+                        <img src="{{ url($n->photo) }}" alt="" width="100px">
+                    </div>
+                @endforeach
+            </div>
+        </section>
+        {{-- review sectio end --}}
     </div>
+
+
     {{-- End Body content --}}
     <div class="info-details">
         <div class="custom-info">
