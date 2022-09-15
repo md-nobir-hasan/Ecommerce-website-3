@@ -5,8 +5,8 @@
 <div class="card">
     <h5 class="card-header">Edit Post</h5>
     <div class="card-body">
-      <form method="post" action="{{route('post.update',$post->id)}}">
-        @csrf 
+      <form method="post" action="{{route('post.update',$post->id)}}" enctype="multipart/form-data">
+        @csrf
         @method('PATCH')
         <div class="form-group">
           <label for="inputTitle" class="col-form-label">Title <span class="text-danger">*</span></label>
@@ -16,16 +16,16 @@
           @enderror
         </div>
 
-        <div class="form-group">
+        {{-- <div class="form-group">
           <label for="quote" class="col-form-label">Quote</label>
           <textarea class="form-control" id="quote" name="quote">{{$post->quote}}</textarea>
           @error('quote')
           <span class="text-danger">{{$message}}</span>
           @enderror
-        </div>
+        </div> --}}
 
         <div class="form-group">
-          <label for="summary" class="col-form-label">Summary <span class="text-danger">*</span></label>
+          <label for="summary" class="col-form-label">Short Description <span class="text-danger">*</span></label>
           <textarea class="form-control" id="summary" name="summary">{{$post->summary}}</textarea>
           @error('summary')
           <span class="text-danger">{{$message}}</span>
@@ -40,7 +40,7 @@
           @enderror
         </div>
 
-        <div class="form-group">
+        {{-- <div class="form-group">
           <label for="post_cat_id">Category <span class="text-danger">*</span></label>
           <select name="post_cat_id" class="form-control">
               <option value="">--Select any category--</option>
@@ -48,22 +48,22 @@
                   <option value='{{$data->id}}' {{(($data->id==$post->post_cat_id)? 'selected' : '')}}>{{$data->title}}</option>
               @endforeach
           </select>
-        </div>
+        </div> --}}
         {{-- {{$post->tags}} --}}
-        @php 
+        {{-- @php
                 $post_tags=explode(',',$post->tags);
                 // dd($tags);
-              @endphp
-        <div class="form-group">
+              @endphp --}}
+        {{-- <div class="form-group">
           <label for="tags">Tag</label>
           <select name="tags[]" multiple  data-live-search="true" class="form-control selectpicker">
               <option value="">--Select any tag--</option>
               @foreach($tags as $key=>$data)
-              
+
               <option value="{{$data->title}}"  {{(( in_array( "$data->title",$post_tags ) ) ? 'selected' : '')}}>{{$data->title}}</option>
               @endforeach
           </select>
-        </div>
+        </div> --}}
         <div class="form-group">
           <label for="added_by">Author</label>
           <select name="added_by" class="form-control">
@@ -76,12 +76,7 @@
         <div class="form-group">
           <label for="inputPhoto" class="col-form-label">Photo <span class="text-danger">*</span></label>
           <div class="input-group">
-              <span class="input-group-btn">
-                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                  <i class="fa fa-picture-o"></i> Choose
-                  </a>
-              </span>
-          <input id="thumbnail" class="form-control" type="text" name="photo" value="{{$post->photo}}">
+          <input class="form-control" type="file" name="photo" value="{{$post->photo}}">
         </div>
         <div id="holder" style="margin-top:15px;max-height:100px;"></div>
 
@@ -89,7 +84,7 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-        
+
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
           <select name="status" class="form-control">

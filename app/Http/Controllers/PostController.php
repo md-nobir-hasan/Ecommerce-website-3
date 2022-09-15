@@ -48,17 +48,17 @@ class PostController extends Controller
         $this->validate($request,[
             'title'=>'string|required',
             'quote'=>'string|nullable',
-            'summary'=>'string|required',
+            'summary'=>'string|nullable',
             'description'=>'string|nullable',
-            'photo'=>'string|nullable',
+            'photo'=>'nullable',
             'tags'=>'nullable',
             'added_by'=>'nullable',
-            'post_cat_id'=>'required',
+            // 'post_cat_id'=>'required',
             'status'=>'required|in:active,inactive'
         ]);
 
         $data=$request->all();
-
+        $data['post_cat_id']= 1;
         $slug=Str::slug($request->title);
         $count=Post::where('slug',$slug)->count();
         if($count>0){
@@ -74,6 +74,23 @@ class PostController extends Controller
             $data['tags']='';
         }
         // return $data;
+// if($request->file('photo')){
+//             $file= $request->file('photo');
+//             $filename= date('YmdHi').$file->getClientOriginalName();
+//             $file-> move(public_path('public/product'), $filename);
+//             $data['photo']= $filename;
+//         }
+        //photo insert
+        if($request->file('photo')){
+            $photo= $request->file('photo');
+            $ext = $photo->getClientOriginalExtension();
+            $name= time().'.'.$ext;
+            $path = 'public/post';
+             $photo->move(public_path($path),$name);
+             $orignal_path = 'public/post/'.$name;
+            //  dd($orignal_path);
+             $data['photo'] = $orignal_path;
+        }
 
         $status=Post::create($data);
         if($status){
@@ -124,13 +141,13 @@ class PostController extends Controller
          // return $request->all();
          $this->validate($request,[
             'title'=>'string|required',
-            'quote'=>'string|nullable',
+            // 'quote'=>'string|nullable',
             'summary'=>'string|required',
             'description'=>'string|nullable',
-            'photo'=>'string|nullable',
-            'tags'=>'nullable',
+            'photo'=>'nullable',
+            // 'tags'=>'nullable',
             'added_by'=>'nullable',
-            'post_cat_id'=>'required',
+            // 'post_cat_id'=>'required',
             'status'=>'required|in:active,inactive'
         ]);
 
@@ -144,7 +161,14 @@ class PostController extends Controller
             $data['tags']='';
         }
         // return $data;
-
+            if($request->file('photo')){
+                $file = $request->file('photo');
+                $ext= $file->getClientOriginalExtension();
+                $name = time().'.'.$ext;
+                $file->move(public_path('public/post/'),$name);
+                $path = 'public/post/'.$name;
+                $data['photo'] = $path;
+            }
         $status=$post->fill($data)->save();
         if($status){
             request()->session()->flash('success','Post Successfully updated');
@@ -164,9 +188,9 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post=Post::findOrFail($id);
-       
+
         $status=$post->delete();
-        
+
         if($status){
             request()->session()->flash('success','Post successfully deleted');
         }
