@@ -16,13 +16,22 @@
 
 <body>
     <!-- Navbar  -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
+    <div class="row text-center justify-content-center bg-success shadow-lg p-4 fixed-top rounded">
+        <div class="col-md-8">
             <a class="navbar-brand" href="#">
                 {{-- logo --}}
                 <img class="rounded-pill" src="{{ url('public/product/' . $company_info->logo) }}" alt=""
                     style="width: 60px">
                 {{-- Copany Name --}}
+                <span style="font-size: 22px">{{ $company_info->name }}</span>
+            </a>
+        </div>
+    </div>
+    {{-- <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img class="rounded-pill" src="{{ url('public/product/' . $company_info->logo) }}" alt=""
+                    style="width: 60px">
                 <span style="font-size: 22px">{{ $company_info->name }}</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -41,7 +50,7 @@
                 </ul>
             </div>
         </div>
-    </nav>
+    </nav> --}}
     {{-- {{ url('public/product/' . $company_info->logo) }} --}}
     <!-- End Navbar  -->
 
