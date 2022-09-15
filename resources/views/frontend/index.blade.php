@@ -48,9 +48,9 @@
     {{-- Body content --}}
     <div class="container-fluid">
         {{-- Paragrap div --}}
-        <div class="row shadow-lg p-3 mb-5 bg-body rounded">
-            <div class="col-md-8 text-wrap">
-                <p class="text-wrap shadow-lg p-3 mb-5 bg-body rounded">🔰শৈশবের ডায়েরী / আমার স্মৃতিময় শৈশব। 😊
+        <div class="row m-4 justify-content-md-center ">
+            <div class="col-md-8 text-wrap text-center">
+                <p class="text-wrap">🔰শৈশবের ডায়েরী / আমার স্মৃতিময় শৈশব। 😊
                     অনেকেই ডায়েরী ২ টার খোঁজ করেছেন কিন্তু পাননি। 🧐🧐 তাইতো
                     ডায়েরী নিজেই আপনাদের খোঁজ করার জন্য তাইতাই ডটকমের কাছে হাজির হয়েছে। 😎😎
                     খুঁজে না পাওয়া এমন অনেক বাচ্চাদের পণ্য পেতে আমাদের সাথেই থাকুন।🥰
@@ -59,9 +59,9 @@
         </div>
 
         {{-- video section --}}
-        <div class="video shadow-lg p-3 mb-5 bg-body rounded    ">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/JnX7Oc8LqD8"
-                title="YouTube video player" frameborder="0"
+        <div class="video m-4 shadow p-4 mb-4 bg-white ">
+            <iframe class="shadow-lg p-3 mb-5 bg-body rounded" width="560" height="315"
+                src="https://www.youtube.com/embed/JnX7Oc8LqD8" title="YouTube video player" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
         </div>
@@ -74,7 +74,8 @@
                     <div class="box">
                         <span class="discount">-{{ $data->discount }}৳</span>
                         <div class="image">
-                            <img src="{{ url('public/product/' . $data->photo) }}" alt="Product Image">
+                            <img class="img-fluid rounded-4 shadow-2-strong"
+                                src="{{ url('public/product/' . $data->photo) }}" alt="Product Image">
                             <div class="icons">
                                 <a href="#" class="fas fa-heart"></a>
                                 <a href="#" class="cart-btn" data-bs-toggle="collapse"
