@@ -20,7 +20,7 @@
         <div class="col-md-8">
             <a class="navbar-brand" href="#">
                 {{-- logo --}}
-                <img class="rounded-pill" src="{{ url('public/product/' . $company_info->logo) }}" alt=""
+                <img class="rounded-pill" src="{{ url('public/product/' . $company_info->logo) }}" alt="Image_logo"
                     style="width: 60px">
                 {{-- Copany Name --}}
                 <span style="font-size: 22px">{{ $company_info->name }}</span>
