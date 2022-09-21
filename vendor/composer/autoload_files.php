@@ -34,6 +34,5 @@ return array(
     'ed962a97bd972bc82007176b647d4e36' => $vendorDir . '/facade/ignition/src/helpers.php',
     'f0906e6318348a765ffb6eb24e0d0938' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
     '58571171fd5812e6e447dce228f52f4d' => $vendorDir . '/laravel/framework/src/Illuminate/Support/helpers.php',
-    '926c288b3d695a1d2b1807ec736280f6' => $baseDir . '/App/nobir.php',
     '559dba61bcaafa74db6aa5e7e8759117' => $baseDir . '/app/Http/Helpers.php',
 );

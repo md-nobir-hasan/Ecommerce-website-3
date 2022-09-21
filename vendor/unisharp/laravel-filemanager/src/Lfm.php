@@ -46,7 +46,22 @@ class Lfm
      */
     public function getNameFromPath($path)
     {
-        return pathinfo($path, PATHINFO_BASENAME);
+        return $this->utf8Pathinfo($path, 'basename');
+    }
+
+    public function utf8Pathinfo($path, $part_name)
+    {
+        // XXX: all locale work-around for issue: utf8 file name got emptified
+        // if there's no '/', we're probably dealing with just a filename
+        // so just put an 'a' in front of it
+        if (strpos($path, '/') === false) {
+            $path_parts = pathinfo('a' . $path);
+        } else {
+            $path = str_replace('/', '/a', $path);
+            $path_parts = pathinfo($path);
+        }
+
+        return substr($path_parts[$part_name], 1);
     }
 
     public function allowFolderType($type)
@@ -147,6 +162,21 @@ class Lfm
     {
         return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.valid_mime');
     }
+    
+    public function shouldCreateCategoryThumb()
+    {
+        return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.thumb');
+    }
+
+    public function categoryThumbWidth()
+    {
+        return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.thumb_width');
+    }
+
+    public function categoryThumbHeight()
+    {
+        return $this->config->get('lfm.folder_categories.' . $this->currentLfmType() . '.thumb_height');
+    }
 
     public function maxUploadSize()
     {
@@ -165,6 +195,12 @@ class Lfm
      */
     public function allowMultiUser()
     {
+        $type_key = $this->currentLfmType();
+
+        if ($this->config->has('lfm.folder_categories.' . $type_key . '.allow_private_folder')) {
+            return $this->config->get('lfm.folder_categories.' . $type_key . '.allow_private_folder') === true;
+        }
+
         return $this->config->get('lfm.allow_private_folder') === true;
     }
 
@@ -178,6 +214,12 @@ class Lfm
     {
         if (! $this->allowMultiUser()) {
             return true;
+        }
+
+        $type_key = $this->currentLfmType();
+
+        if ($this->config->has('lfm.folder_categories.' . $type_key . '.allow_shared_folder')) {
+            return $this->config->get('lfm.folder_categories.' . $type_key . '.allow_shared_folder') === true;
         }
 
         return $this->config->get('lfm.allow_shared_folder') === true;

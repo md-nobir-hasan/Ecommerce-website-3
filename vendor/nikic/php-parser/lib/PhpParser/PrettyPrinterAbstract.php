@@ -824,7 +824,11 @@ abstract class PrettyPrinterAbstract
                     return null;
                 }
 
-                if ($insertStr === ', ' && $this->isMultiline($origNodes)) {
+                // We go multiline if the original code was multiline,
+                // or if it's an array item with a comment above it.
+                if ($insertStr === ', ' &&
+                    ($this->isMultiline($origNodes) || $arrItem->getComments())
+                ) {
                     $insertStr = ',';
                     $insertNewline = true;
                 }
@@ -842,11 +846,11 @@ abstract class PrettyPrinterAbstract
                 $this->setIndentLevel($lastElemIndentLevel);
 
                 if ($insertNewline) {
+                    $result .= $insertStr . $this->nl;
                     $comments = $arrItem->getComments();
                     if ($comments) {
-                        $result .= $this->nl . $this->pComments($comments);
+                        $result .= $this->pComments($comments) . $this->nl;
                     }
-                    $result .= $insertStr . $this->nl;
                 } else {
                     $result .= $insertStr;
                 }
@@ -919,11 +923,14 @@ abstract class PrettyPrinterAbstract
             foreach ($delayedAdd as $delayedAddNode) {
                 if (!$first) {
                     $result .= $insertStr;
+                    if ($insertNewline) {
+                        $result .= $this->nl;
+                    }
                 }
                 $result .= $this->p($delayedAddNode, true);
                 $first = false;
             }
-            $result .= $extraRight;
+            $result .= $extraRight === "\n" ? $this->nl : $extraRight;
         }
 
         return $result;
@@ -1343,6 +1350,7 @@ abstract class PrettyPrinterAbstract
             //'Scalar_Encapsed->parts' => '',
             'Stmt_Catch->types' => '|',
             'UnionType->types' => '|',
+            'IntersectionType->types' => '&',
             'Stmt_If->elseifs' => ' ',
             'Stmt_TryCatch->catches' => ' ',
 
@@ -1449,6 +1457,16 @@ abstract class PrettyPrinterAbstract
             'Stmt_ClassMethod->params' => ['(', '', ''],
             'Stmt_Interface->extends' => [null, ' extends ', ''],
             'Stmt_Function->params' => ['(', '', ''],
+            'Stmt_Interface->attrGroups' => [null, '', "\n"],
+            'Stmt_Class->attrGroups' => [null, '', "\n"],
+            'Stmt_ClassConst->attrGroups' => [null, '', "\n"],
+            'Stmt_ClassMethod->attrGroups' => [null, '', "\n"],
+            'Stmt_Function->attrGroups' => [null, '', "\n"],
+            'Stmt_Property->attrGroups' => [null, '', "\n"],
+            'Stmt_Trait->attrGroups' => [null, '', "\n"],
+            'Expr_ArrowFunction->attrGroups' => [null, '', ' '],
+            'Expr_Closure->attrGroups' => [null, '', ' '],
+            'Expr_PrintableNewAnonClass->attrGroups' => [\T_NEW, ' ', ''],
 
             /* These cannot be empty to start with:
              * Expr_Isset->vars

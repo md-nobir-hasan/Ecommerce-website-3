@@ -480,6 +480,24 @@ abstract class TestCase extends Assert implements SelfDescribing, Test
     }
 
     /**
+     * Performs assertions shared by all tests of a test case.
+     *
+     * This method is called between setUp() and test.
+     */
+    protected function assertPreConditions(): void
+    {
+    }
+
+    /**
+     * Performs assertions shared by all tests of a test case.
+     *
+     * This method is called between test and tearDown().
+     */
+    protected function assertPostConditions(): void
+    {
+    }
+
+    /**
      * This method is called after each test.
      */
     protected function tearDown(): void
@@ -1935,6 +1953,10 @@ abstract class TestCase extends Assert implements SelfDescribing, Test
      */
     protected function prophesize($classOrInterface = null): ObjectProphecy
     {
+        if (!class_exists(Prophet::class)) {
+            throw new Exception('This test uses TestCase::prophesize(), but phpspec/prophecy is not installed. Please run "composer require --dev phpspec/prophecy".');
+        }
+
         if (is_string($classOrInterface)) {
             $this->recordDoubledType($classOrInterface);
         }
@@ -1950,24 +1972,6 @@ abstract class TestCase extends Assert implements SelfDescribing, Test
     protected function createResult(): TestResult
     {
         return new TestResult;
-    }
-
-    /**
-     * Performs assertions shared by all tests of a test case.
-     *
-     * This method is called between setUp() and test.
-     */
-    protected function assertPreConditions(): void
-    {
-    }
-
-    /**
-     * Performs assertions shared by all tests of a test case.
-     *
-     * This method is called between test and tearDown().
-     */
-    protected function assertPostConditions(): void
-    {
     }
 
     /**
@@ -2321,7 +2325,6 @@ abstract class TestCase extends Assert implements SelfDescribing, Test
             $blacklist->addClassNamePrefix('SebastianBergmann\Invoker');
             $blacklist->addClassNamePrefix('SebastianBergmann\Timer');
             $blacklist->addClassNamePrefix('PHP_Token');
-            $blacklist->addClassNamePrefix('Symfony');
             $blacklist->addClassNamePrefix('Text_Template');
             $blacklist->addClassNamePrefix('Doctrine\Instantiator');
             $blacklist->addClassNamePrefix('Prophecy');
