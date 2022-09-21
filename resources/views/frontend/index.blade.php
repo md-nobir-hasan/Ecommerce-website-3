@@ -24,7 +24,6 @@
                     style="width: 60px">
                 {{-- Copany Name --}}
                 <span style="font-size: 22px">{{ $company_info->name }}</span>
-                <span style="font-size: 22px">Md Nobir Hasan</span>
             </a>
         </div>
     </div>
